@@ -152,7 +152,17 @@
       return false;
     }
   }
-
+private void makeNoise(Material material, NoiseLevel noise, boolean correctBit){        //ich habe die Aufgabe so verstanden, dass die Methode add benutzt werden soll und nicht der Pegel erhöht.
+    NoiseLevel additional = new NoiseLevel();
+   
+        switch(material){
+            case Wood: if(correctBit){ additional.setPegel(5); }else{additional.setPegel(10);} noise.add(additional);break;
+            case Plastic: if(correctBit){additional.setPegel(5);}else{additional.setPegel(10);} noise.add(additional);break;
+            case Metal: if(correctBit&&(bitSize+3<=10)){additional.setPegel(bitSize+3);}else{additional.setPegel(10);}noise.add(additional);break;
+            case Concrete:case Stone: case ReinforcedConcrete: if(correctBit){additional.setPegel(11);}else{additional.setPegel(8);}noise.add(additional);break;
+        }
+    
+};
   /**
    * Aktualisiert das Geraeuschniveau in der Umgebung beim Bohren.
    *
