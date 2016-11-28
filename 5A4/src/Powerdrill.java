@@ -12,7 +12,7 @@
   /**
    * Maximale Ladung der Akkus aller Bohrer.
    */
-  /*TODO g)*/ static final double max_power = 5.0;              //muss static gesetzt werden, da auf die Klasse PowerDrill zugegriffen wird und nicht einzelne Objekte
+  /*TODO g)*/  static final double max_power = 5.0;              //muss static gesetzt werden, da auf die Klasse PowerDrill zugegriffen wird und nicht einzelne Objekte
 
   /**
    * Ladung des Akkus
@@ -61,6 +61,7 @@
    * @param bit eingesetzter Bohrer-Typ
    * @param bitSize eingesetzter Bohrer-Durchmesser
    */
+  //Powerdrill-Objekte werden von der main-Klasse erschaffen. somi muss diese auf die Konstruktoren  zugreifen können.
   /*TODO g)*/protected Powerdrill(BitType bit, int bitSize) {
     this.bit = bit;
     this.bitSize=bitSize;
@@ -151,15 +152,17 @@
     } else {
       return false;
     }
-  }
-private void makeNoise(Material material, NoiseLevel noise, boolean correctBit){        //ich habe die Aufgabe so verstanden, dass die Methode add benutzt werden soll und nicht der Pegel erhöht.
-    NoiseLevel additional = new NoiseLevel();
+  }  //ich habe die Aufgabe so verstanden, dass die Methode add benutzt werden soll und nicht der Pegel erhöht. des weiteren ist die Methode private, da sie in drill verwendet wird.
+private void makeNoise(Material material, NoiseLevel noise, boolean correctBit){      
+    NoiseLevel additional = new NoiseLevel(); //brauche ich gleich für die add-methode, die NoiseLevel-Objekte als Argument bekommt
    
-        switch(material){
+        switch(material){//Anwendung der Aufgabenstellung der h. je nachdem ob es der richtige Bohrer war oder nicht, wird additional gesetzt und zu noise geadded.
             case Wood: if(correctBit){ additional.setPegel(5); }else{additional.setPegel(10);} noise.add(additional);break;
             case Plastic: if(correctBit){additional.setPegel(5);}else{additional.setPegel(10);} noise.add(additional);break;
-            case Metal: if(correctBit&&(bitSize+3<=10)){additional.setPegel(bitSize+3);}else{additional.setPegel(10);}noise.add(additional);break;
-            case Concrete:case Stone: case ReinforcedConcrete: if(correctBit){additional.setPegel(11);}else{additional.setPegel(8);}noise.add(additional);break;
+            case Metal: if(correctBit&&(bitSize+3<=10)){additional.setPegel(bitSize+3);}else{additional.setPegel(10);}noise.add(additional);break;//zusätzlicher check ob bitSize <7 nach Aufgabenstellung
+            case Concrete://durchrutschen zur nächsten Anweisung, da kein break.
+            case Stone: 
+            case ReinforcedConcrete: if(correctBit){additional.setPegel(11);}else{additional.setPegel(8);}noise.add(additional);break;
         }
     
 };
