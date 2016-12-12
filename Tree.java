@@ -60,9 +60,24 @@ public class Tree {
    * @return true, falls x im Baum enthalten ist, sonst false
    */
   public boolean search(int x) {
-   if(this.isEmpty()){return false;}
-   if(this.root.rotationSearch(x)){return true;};
-   return false;
+      System.out.print(x);
+      if(this.simpleSearch(x)==false){return false;}
+      TreeNode oldRoot =this.root;
+      TreeNode a = oldRoot.rotationSearch(x);
+      this.root=a;
+      System.out.print(this.root.getValue()+"     "+a.getValue());
+   if(a.getValue()==oldRoot.getValue()){return true;}
+   else{ if(!this.root.hasLeft()&&!this.root.hasRight()){return false;}
+  if(this.root.getValue()<x&&!this.root.getLeft().hasLeft()&&!this.root.getLeft().hasRight()){return false;}
+  if(this.root.getValue()>x&&!this.root.getRight().hasLeft()&&!this.root.getRight().hasRight()){return false;}
+  return this.search(x);}
+
+   
+
+  
+   
+   
+   
     //Ende TODO
   }
 
@@ -73,7 +88,7 @@ public class Tree {
     if(this.isEmpty()){return "ist leer";}
    return this.root.toString("");
     
-    //Ende TODO
+    //Ende TODOs
   }
 
   /**
@@ -84,7 +99,7 @@ public class Tree {
       return "digraph { null[shape=point]; }";
     }
     StringBuilder str = new StringBuilder();
-    this.root.toDot(str, 0);
+   if(this.root!=null){ this.root.toDot(str, 0);}
     return "digraph {" + System.lineSeparator()
       + "graph [ordering=\"out\"];" + System.lineSeparator()
       + str.toString()

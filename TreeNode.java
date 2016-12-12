@@ -76,10 +76,10 @@ public class TreeNode {
   public boolean simpleSearch(int x) {
     if(this.value==x){return true;};
  if(x>this.value){
-      if(this.getRight()==null){return false;}
+      if(!this.hasRight()){return false;}
       else{return this.right.simpleSearch(x);}
   }
-   if(x<this.value){if(this.getLeft()==null){return false;}
+   if(x<this.value){if(!this.hasLeft()){return false;}
       else{return this.left.simpleSearch(x);}
   }
    return false;
@@ -90,14 +90,14 @@ public class TreeNode {
    * Fuegt x in diesen Teilbaum ein.
    */
   public void insert(int x) {
- 
+     if( !this.simpleSearch(x)){
    if(x>this.value){
       if(this.getRight()==null){TreeNode newNode = new TreeNode(x);this.right = newNode;}
       else{this.right.insert(x);}
   }
    if(x<this.value){if(this.getLeft()==null){TreeNode newNode = new TreeNode(x);this.left = newNode;}
       else{this.left.insert(x);}
-  }
+  }}
   }
   /**
    * Sucht in diesem Teilbaum nach x und rotiert den Endpunkt der Suche in die
@@ -106,8 +106,22 @@ public class TreeNode {
    * @return die neue Wurzel des Teilbaums
    */
   public TreeNode rotationSearch(int x) {
-    
-    return null;
+   TreeNode Return;
+      if(x==this.value){Return=this;}
+      TreeNode z = null;
+      if(x<this.value){
+    if(this.left.hasRight()){ z = this.left.right;}
+    Return = this.left;
+    this.left.right=this;
+    if(z!=null){this.left=z;}else{this.left.right=null;}
+    }
+    else{
+     if(this.right.hasLeft()){z = this.right.left;}
+    Return = this.right;
+    this.right.left=this;
+    if(z!=null){this.right=z;}else{this.left.right=null;}
+      }
+    return Return;
     //Ende TODO
   }
 
@@ -120,7 +134,7 @@ public class TreeNode {
     if(this.hasRight()==true){return this.right.toString(a);}
     return a;
     }else{
-    if(this.hasRight()==true){a= a+", "+this.value; return this.right.toString(a);}}
+    if(this.hasRight()==true){a= a+", "+this.value; return this.right.toString(a);}else{a=a+", "+this.value;}}
     return a;
     //Ende TODO
   }
