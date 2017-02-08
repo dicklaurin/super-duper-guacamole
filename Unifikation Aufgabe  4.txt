@@ -1,0 +1,27 @@
+Aufgabe 4)
+i) f(X,X,g(X,X)) und f(Y,a,g(b,Y))
+o1 = {X = Y}
+o2 = {X = a}
+o3 = clash failure , aus o2 folgt X = a also g(X,X) = g(a,a) aber es soll g(X,X) = g(b,Y) , a != b
+
+ii) f(X,g(a,Y)) und f(h(Y),g(Z,h(Z)))
+o1 = {X = h(Y)}
+o2 = {Z = a ,Y = h(a)}
+o  = {X = h(h(a)) , Y = h(a) , Z = a}
+
+iii) f(g(X,a),X) und f(g(Y,X),g(Y,X))
+o1 =  {X = Y , a = X}
+o2 = occur failure da X = g(Y,X),  X tritt in g(Y,X) auf ,Berechnung des allgemeinsten Unifikators existiert nicht. 
+
+iv) f(W,g(Y),Y,W) und f(g(X),X,g(Z),Z)
+o1 = {W = g(X)}
+o2 = {X = g(Y)}
+o3 = {Y = g(Z)}
+o4 = occur failure mit Z = W , Z tritt g(g(g(Z))) auf, in Berechnung des allgemeinsten Unifikators existiert nicht .
+
+v) f(g(X,Z),Z,g(Z,X)) und f(Y,a,g(Z,g(W,X))
+o1 = {Y = g(X,Z)}
+o2 = {Z = a}
+o3 = occur failure mit X = g(W,X) , X tritt in g(W,X) auf, Berechnung des allgemeinsten Unifikators existiert nicht.
+
+
